@@ -12,7 +12,7 @@ st.image("Solar_power_logo.jpg", width=200)
 # Load Data
 @st.cache_data
 def load_data():
-    merged_data = pd.read_csv('Merged_data.csv')
+    merged_data = pd.read_csv('merged_data.csv')
     merged_data['DATE_TIME'] = pd.to_datetime(merged_data['DATE_TIME'])
     return merged_data
 

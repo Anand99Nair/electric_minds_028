@@ -4,10 +4,15 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
 
+
+# Display a logo at the top of the dashboard
+st.image("Solar_power_logo.jpg", width=200)
+
+
 # Load Data
 @st.cache_data
 def load_data():
-    merged_data = pd.read_csv('merged_data.csv')
+    merged_data = pd.read_csv('Merged_data.csv')
     merged_data['DATE_TIME'] = pd.to_datetime(merged_data['DATE_TIME'])
     return merged_data
 
@@ -33,7 +38,6 @@ filtered_data = data[
     (data['DATE_TIME'].dt.date <= pd.to_datetime(date_range[1]).date())
 ]
 
-
 # Main Dashboard
 st.title("Solar Power Analysis Dashboard")
 
@@ -52,12 +56,12 @@ st.header("Average AC and DC Power by Source Key")
 col1, col2 = st.columns(2)
 with col1:
     avg_ac_power = filtered_data.groupby('SOURCE_KEY')['AC_POWER'].mean().reset_index()
-    fig = px.bar(avg_ac_power, x='SOURCE_KEY', y='AC_POWER', title="Average AC Power by Source Key", width=400, height=400)
+    fig = px.bar(avg_ac_power, x='SOURCE_KEY', y='AC_POWER', title="Average AC Power by Source Key")
     st.plotly_chart(fig)
 
 with col2:
     avg_dc_power = filtered_data.groupby('SOURCE_KEY')['DC_POWER'].mean().reset_index()
-    fig = px.bar(avg_dc_power, x='SOURCE_KEY', y='DC_POWER', title="Average DC Power by Source Key", width=400, height=400)
+    fig = px.bar(avg_dc_power, x='SOURCE_KEY', y='DC_POWER', title="Average DC Power by Source Key")
     st.plotly_chart(fig)
 
 # Section 3: Yield Analysis by Source Key
